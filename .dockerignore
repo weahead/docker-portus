@@ -1,0 +1,6 @@
+Portus/.git*
+Portus/tmp
+Portus/vagrant
+Portus/packaging
+Portus/log/*
+.DS_Store

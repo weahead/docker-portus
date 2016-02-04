@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv sh
+
+set +e
+
+cd /portus
+
+exec /usr/local/bundle/bin/puma -C /puma.rb
