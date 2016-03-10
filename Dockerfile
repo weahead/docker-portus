@@ -1,18 +1,24 @@
-FROM library/rails:4.2.2
+FROM rails:4.2.2
 
-MAINTAINER Michael Lopez <michael@weahead.se>
+MAINTAINER We ahead <docker@weahead.se>
 
-ADD https://github.com/just-containers/s6-overlay/releases/download/v1.17.1.1/s6-overlay-amd64.tar.gz /tmp/
+ENV RAILS_ENV=production\
+    NOKOGIRI_USE_SYSTEM_LIBRARIES=1\
+    S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
-RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C / && rm -f /tmp/s6-overlay-amd64.tar.gz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v1.17.2.0/s6-overlay-amd64.tar.gz /tmp/
+ADD https://github.com/just-containers/s6-overlay/releases/download/v1.17.2.0/s6-overlay-amd64.tar.gz.sig /tmp/
 
-RUN mkdir /portus
+RUN gpg --keyserver pgp.mit.edu --recv-key 0x337EE704693C17EF && \
+    gpg --verify /tmp/s6-overlay-amd64.tar.gz.sig /tmp/s6-overlay-amd64.tar.gz && \
+    tar -xzf /tmp/s6-overlay-amd64.tar.gz -C /
 
 WORKDIR /portus
 
 COPY Portus/Gemfile* ./
 
-RUN bundle install --retry=3
+RUN bundle config build.nokogiri --use-system-libraries && \
+    bundle install --retry=3
 
 COPY Portus .
 

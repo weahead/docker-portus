@@ -1,7 +1,7 @@
-#!/usr/bin/with-contenv sh
+#!/usr/bin/execlineb -P
 
-set +e
+with-contenv
 
-cd /portus
-
-exec /usr/local/bundle/bin/puma -C /puma.rb
+backtick -D secret PORTUS_SECRET_KEY_BASE
+  { cd /portus bundle exec rake secret }
+  cd /portus bundle exec puma -C /usr/local/etc/portus/puma.rb

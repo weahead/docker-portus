@@ -1,7 +1,5 @@
-#!/usr/bin/with-contenv sh
+#!/usr/bin/execlineb -P
 
-set +e
+with-contenv
 
-cd /portus
-
-exec /usr/local/bundle/bin/bundle exec crono
+cd /portus bundle exec crono -L STDOUT -e production
