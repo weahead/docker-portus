@@ -1,6 +1,11 @@
+.git
+.gitignore
+.gitmodules
+LICENSE
+README.md
 Portus/.git*
 Portus/tmp
 Portus/vagrant
 Portus/packaging
 Portus/log/*
-.DS_Store
+build.sh
