@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORTUS_VERSION=2.0.3
+PORTUS_VERSION=2.0.5
 
 cd Portus
 
